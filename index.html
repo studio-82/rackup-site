@@ -68,9 +68,11 @@
     .block-head p { color: var(--muted); margin: 0; max-width: 34rem; }
 
     .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--ink); }
-    @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 760px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 1040px) { .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
     .steps li { padding: 22px 28px 8px 0; }
-    @media (min-width: 760px) { .steps li + li { padding-left: 28px; border-left: 1px solid var(--rule); } }
+    @media (min-width: 760px) { .steps li:nth-child(even) { padding-left: 28px; border-left: 1px solid var(--rule); } }
+    @media (min-width: 1040px) { .steps li + li { padding-left: 28px; border-left: 1px solid var(--rule); } }
     .steps .label { color: var(--muted); }
     .steps h3 { font: 500 1.1rem/1.35 var(--sans); margin: 14px 0 8px; }
     .steps p { color: var(--muted); margin: 0; }
@@ -81,6 +83,18 @@
     .figures dt { font: 400 clamp(2.2rem, 4.5vw, 3.2rem)/1 var(--serif); font-variant-numeric: tabular-nums; }
     .figures dd { margin: 10px 0 0; color: var(--muted); max-width: 16rem; }
 
+    .plan { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--ink); }
+    @media (min-width: 900px) { .plan { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+    .price { padding: 24px 0 28px; }
+    @media (min-width: 900px) { .price { padding-right: 48px; border-right: 1px solid var(--rule); } }
+    .amount { margin: 10px 0 24px; color: var(--muted); }
+    .amount span { display: block; font: 400 clamp(3.6rem, 9vw, 5.6rem)/1 var(--serif); color: var(--ink); font-variant-numeric: tabular-nums; }
+    .includes { list-style: none; margin: 0; padding: 0; }
+    @media (min-width: 900px) { .includes { padding-left: 48px; } }
+    .includes li { padding: 18px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 4px; }
+    .includes strong { font-weight: 500; }
+    .includes span { color: var(--muted); }
+    .plan-note { color: var(--muted); margin: 20px 0 0; font-size: 0.95rem; }
     .access { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 48px; }
     @media (min-width: 900px) { .access { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
     .access .status { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; }
@@ -116,6 +130,7 @@
       <nav class="label" aria-label="Sections">
         <a href="#how">How it works</a>
         <a href="#coverage">Coverage</a>
+        <a href="#pricing">Pricing</a>
       </nav>
       <a class="button label" href="#access">Request access</a>
     </header>
@@ -162,6 +177,11 @@
             <h3>Apply with full terms</h3>
             <p>Award size, timing, required documents, and whether funds are paid in advance or reimbursed.</p>
           </li>
+          <li>
+            <span class="label">04</span>
+            <h3>Stay on top of new money</h3>
+            <p>Programs open, close and change all year. Rackup keeps checking and lets you know when a new one fits your business.</p>
+          </li>
         </ol>
       </section>
 
@@ -176,6 +196,27 @@
           <div><dt>5</dt><dd>Boroughs, including programs limited to specific neighborhoods</dd></div>
           <div><dt>$0</dt><dd>To pay back on grants, tax credits and rebates</dd></div>
         </dl>
+      </section>
+
+      <section class="block" id="pricing" aria-labelledby="pricing-title">
+        <div class="block-head">
+          <h2 id="pricing-title">Pricing</h2>
+          <p>One plan with everything included. Rackup keeps working after your first search, so new funding reaches you without having to look for it.</p>
+        </div>
+        <div class="plan">
+          <div class="price">
+            <p class="label">Rackup</p>
+            <p class="amount"><span>$30</span> per month</p>
+            <a class="button label" href="#access">Request access</a>
+          </div>
+          <ul class="includes">
+            <li><strong>Your matches</strong><span>Every program your business qualifies for, from more than 1,200 city, state, utility and federal sources.</span></li>
+            <li><strong>Continuous checking</strong><span>New programs and reopened funding rounds are checked against your business as they appear.</span></li>
+            <li><strong>Alerts when something fits</strong><span>We let you know when a new program matches, so you can apply before it closes.</span></li>
+            <li><strong>Plain answers</strong><span>How much, when, what to prepare, and whether it pays up front or reimburses you.</span></li>
+          </ul>
+        </div>
+        <p class="plan-note">Joining the list is free and doesn't commit you to anything.</p>
       </section>
 
       <section class="block" id="access" aria-labelledby="access-title">
