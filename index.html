@@ -181,9 +181,9 @@
       <section class="block" id="access" aria-labelledby="access-title">
         <div class="access">
           <div>
-            <p class="label status"><i aria-hidden="true"></i>Currently at capacity</p>
+            <p class="label status"><i aria-hidden="true"></i>High demand</p>
             <h2 id="access-title">Request access</h2>
-            <p class="lead">We admit businesses in cohorts so every profile receives a complete assessment. Submit a request and we will contact you when the next place opens.</p>
+            <p class="lead">Demand for Rackup has been higher than we expected, so we are opening it to businesses in groups. We are working to make it available to everyone. Enter your email and we will let you know as soon as it is ready for you.</p>
           </div>
           <div>
             <form id="join" novalidate>
@@ -233,7 +233,7 @@
             </form>
             <div class="received" id="done" hidden tabindex="-1">
               <p class="label">Request received</p>
-              <h3 id="done-title">You're in the queue.</h3>
+              <h3 id="done-title">Thank you.</h3>
               <p id="done-text"></p>
               <button class="text-button" type="button" id="again">Submit another request</button>
             </div>
@@ -282,9 +282,7 @@
           const text = body.error && typeof body.error.message === "string" ? body.error.message : "The request could not be submitted. Please try again.";
           throw new Error(text);
         }
-        $("done-text").textContent = body.position
-          ? `Your position is ${body.position}. We will contact ${email} when a place becomes available.`
-          : `We will contact ${email} when a place becomes available.`;
+        $("done-text").textContent = "We will contact you as soon as Rackup is available to you.";
         $("join").hidden = true;
         $("done").hidden = false;
         $("done").focus();
