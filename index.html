@@ -4,142 +4,249 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Rackup</title>
-  <meta name="description" content="Rackup matches New York City small businesses to the grants, tax credits and rebates they can actually get. Request early access.">
+  <meta name="description" content="Rackup matches New York City businesses to grants, tax credits and incentives they qualify for. Request access.">
   <meta property="og:title" content="Rackup">
-  <meta property="og:description" content="Find the money your NYC business doesn't have to pay back.">
-  <meta name="theme-color" content="#b8c1ae">
+  <meta property="og:description" content="Non-dilutive funding, matched to your business.">
+  <meta name="theme-color" content="#f4f3ef">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
   <style>
     :root {
-      --field: #b8c1ae; --paper: #cbd2c1; --ink: #1c211b; --ink-soft: #414a3e;
-      --mustard: #e3c766; --mustard-deep: #c9aa45; --rust: #9b4128; --line: rgba(28, 33, 27, 0.16);
-      --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
-      --body: "Figtree", "Avenir Next", system-ui, sans-serif;
-      --gutter: clamp(16px, 5vw, 44px);
+      --paper: #f4f3ef;
+      --surface: #ffffff;
+      --ink: #121212;
+      --muted: #6b6a65;
+      --rule: #dcdad3;
+      --error: #7e2a1f;
+      --serif: "Instrument Serif", "Times New Roman", serif;
+      --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(20px, 5vw, 64px);
     }
     * { box-sizing: border-box; }
-    html, body { background: var(--field); }
-    body { margin: 0; color: var(--ink); font: 400 1.0625rem/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+    html, body { background: var(--paper); }
+    body { margin: 0; color: var(--ink); font: 400 1rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
     button, input, select { font: inherit; color: inherit; }
-    :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
     [tabindex="-1"]:focus { outline: none; }
     [hidden] { display: none !important; }
 
-    .wrap { max-width: 68rem; margin: 0 auto; padding: 24px var(--gutter) 56px; }
-    .mark { font: 700 1.25rem/1 var(--display); letter-spacing: -0.02em; margin: 0; display: inline-flex; align-items: center; gap: 10px; }
-    .mark i { width: 14px; height: 22px; background: var(--mustard); border-radius: 3px; box-shadow: 6px -6px 0 var(--ink); display: inline-block; }
+    .label { font: 500 0.72rem/1.6 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; }
+    .wrap { max-width: 76rem; margin: 0 auto; padding: 0 var(--gutter); }
 
-    .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: clamp(40px, 10vh, 110px); }
-    @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: end; } }
-    .hero > *, .pair > * { min-width: 0; }
-    h1 { font: 700 clamp(2.5rem, 9vw, 5rem)/0.98 var(--display); letter-spacing: -0.035em; margin: 0 0 22px; text-wrap: balance; }
-    .lede { font-size: clamp(1.1rem, 2.6vw, 1.3rem); max-width: 34rem; margin: 0; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--rule); }
+    .wordmark { font: 600 0.8rem/1 var(--sans); letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; }
+    nav { display: flex; gap: 36px; }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--ink); }
+    @media (max-width: 720px) { nav { display: none; } }
+    .button { display: inline-block; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); border-radius: 2px; padding: 13px 20px; text-decoration: none; cursor: pointer; }
+    .button:hover { background: #000; }
+    .button:disabled { opacity: 0.55; cursor: default; }
 
-    .steps { list-style: none; counter-reset: step; padding: 0; margin: clamp(48px, 9vh, 96px) 0 0; display: grid; gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-    .steps li { counter-increment: step; background: var(--field); padding: 22px 22px 22px 0; }
-    @media (min-width: 760px) { .steps li + li { padding-left: 22px; } }
-    .steps li::before { content: counter(step); font: 700 2.4rem/1 var(--display); color: var(--mustard-deep); display: block; margin-bottom: 10px; }
-    .steps strong { display: block; font-size: 1.1rem; margin-bottom: 4px; }
-    .steps span { color: var(--ink-soft); }
+    .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: center; min-height: min(78vh, 760px); padding: 40px 0 56px; }
+    @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+    h1 { font: 400 clamp(2.6rem, 6.2vw, 4.6rem)/1.04 var(--serif); letter-spacing: -0.01em; margin: 0 0 26px; max-width: 13ch; }
+    .intro { color: var(--muted); max-width: 30rem; margin: 0 0 36px; font-size: 1.05rem; }
+    .hero .label { color: var(--ink); line-height: 2; }
+    .figure { width: 100%; max-width: 620px; justify-self: center; aspect-ratio: 1 / 1; }
+    @media (max-width: 899px) { .figure { max-width: 420px; order: -1; margin-top: 8px; } }
+    .figure circle { fill: none; stroke: var(--ink); vector-effect: non-scaling-stroke; }
+    .cluster { transform-box: fill-box; transform-origin: center; animation: breathe 9s ease-in-out infinite; }
+    .cluster:nth-of-type(2) { animation-delay: -3s; }
+    .cluster:nth-of-type(3) { animation-delay: -6s; }
+    .orbit { transform-box: fill-box; transform-origin: center; animation: turn 60s linear infinite; }
+    @keyframes breathe { 0%, 100% { transform: scale(0.94); } 50% { transform: scale(1.04); } }
+    @keyframes turn { to { transform: rotate(360deg); } }
 
-    .card { background: var(--paper); border-radius: 20px; padding: 24px; }
-    .card h2 { font: 700 1.6rem/1.1 var(--display); letter-spacing: -0.015em; margin: 0 0 6px; }
-    .card > form > p, .card .sub { margin: 0 0 12px; color: var(--ink-soft); }
-    label { display: block; font-weight: 600; font-size: 0.95rem; margin: 14px 0 6px; }
-    label .opt { font-weight: 400; color: var(--ink-soft); }
-    input[type="email"], select { width: 100%; min-width: 0; max-width: 100%; padding: 13px 14px; border-radius: 12px; border: 2px solid var(--line); background: #e3e8dc; }
+    section.block { border-top: 1px solid var(--rule); padding: 72px 0; }
+    .block-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px 48px; margin-bottom: 40px; }
+    @media (min-width: 900px) { .block-head { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: end; } }
+    h2 { font: 400 clamp(2rem, 4.2vw, 3rem)/1.08 var(--serif); margin: 0; }
+    .block-head p { color: var(--muted); margin: 0; max-width: 34rem; }
+
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--ink); }
+    @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .steps li { padding: 22px 28px 8px 0; }
+    @media (min-width: 760px) { .steps li + li { padding-left: 28px; border-left: 1px solid var(--rule); } }
+    .steps .label { color: var(--muted); }
+    .steps h3 { font: 500 1.1rem/1.35 var(--sans); margin: 14px 0 8px; }
+    .steps p { color: var(--muted); margin: 0; }
+
+    .figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin: 0; }
+    @media (min-width: 760px) { .figures { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .figures div { border-top: 1px solid var(--ink); padding-top: 16px; }
+    .figures dt { font: 400 clamp(2.2rem, 4.5vw, 3.2rem)/1 var(--serif); font-variant-numeric: tabular-nums; }
+    .figures dd { margin: 10px 0 0; color: var(--muted); max-width: 16rem; }
+
+    .access { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 48px; }
+    @media (min-width: 900px) { .access { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+    .access .status { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .access .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); display: inline-block; }
+    .access p.lead { color: var(--muted); max-width: 30rem; margin: 18px 0 0; }
+    form { background: var(--surface); border: 1px solid var(--rule); padding: clamp(20px, 4vw, 36px); }
+    .field { margin-bottom: 18px; }
+    .field label { display: block; margin-bottom: 8px; color: var(--muted); }
+    input[type="email"], select { width: 100%; min-width: 0; padding: 13px 14px; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); appearance: none; }
+    select { background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
     input:focus, select:focus { border-color: var(--ink); outline: none; }
-    .pair { display: grid; gap: 0 12px; }
-    @media (min-width: 460px) { .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
-    .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin-top: 16px; }
-    .consent input { width: 20px; height: 20px; margin-top: 3px; flex: none; accent-color: var(--ink); }
-    .go { width: 100%; margin-top: 18px; border: 0; border-radius: 999px; padding: 16px 20px; background: var(--mustard); box-shadow: inset 0 -3px 0 var(--mustard-deep); font-weight: 700; font-size: 1.05rem; cursor: pointer; }
-    .go:disabled { opacity: 0.6; cursor: default; }
-    .message { margin: 12px 0 0; min-height: 1.4em; color: var(--rust); font-weight: 600; }
-    .fine { font-size: 0.85rem; color: var(--ink-soft); margin: 10px 0 0; }
+    .pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 16px; }
+    @media (min-width: 520px) { .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .consent { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 0.92rem; margin: 6px 0 22px; }
+    .consent input { width: 16px; height: 16px; margin-top: 4px; flex: none; accent-color: var(--ink); }
+    form .button { width: 100%; padding: 15px 20px; }
+    .message { margin: 14px 0 0; min-height: 1.5em; color: var(--error); font-size: 0.92rem; }
     .honey { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-    .again { border: 0; background: none; padding: 8px 0; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-    footer { margin-top: 56px; font-size: 0.9rem; color: var(--ink-soft); }
-    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+    .received { background: var(--surface); border: 1px solid var(--rule); padding: clamp(20px, 4vw, 36px); }
+    .received h3 { font: 400 2rem/1.1 var(--serif); margin: 0 0 12px; }
+    .received p { color: var(--muted); margin: 0 0 18px; }
+    .text-button { background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+
+    footer { border-top: 1px solid var(--rule); padding: 28px 0 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) { .cluster, .orbit { animation: none; } }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <p class="mark"><i aria-hidden="true"></i>Rackup</p>
+  <div class="wrap">
+    <header>
+      <a class="wordmark" href="#top" aria-label="Rackup home">Rackup</a>
+      <nav class="label" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#coverage">Coverage</a>
+      </nav>
+      <a class="button label" href="#access">Request access</a>
+    </header>
 
-    <div class="hero">
-      <section>
-        <h1>Find the money your business doesn't have to pay back</h1>
-        <p class="lede">New York City has grants, tax credits and rebates for small businesses, spread across hundreds of city, state, utility and federal pages. Rackup reads them for you and shows the ones that fit your business, with plain answers on how much, when, and what it takes.</p>
+    <main id="top">
+      <section class="hero" aria-labelledby="headline">
+        <div>
+          <h1 id="headline">Non-dilutive funding, matched to your business.</h1>
+          <p class="intro">Rackup screens grants, tax credits and incentives from New York City, New York State, utilities and federal agencies, and shows which ones your business qualifies for.</p>
+          <p class="label">New York City small business<br>Grants, credits and incentives</p>
+        </div>
+        <svg class="figure" viewBox="0 0 600 600" aria-hidden="true">
+          <g class="cluster">
+            <circle cx="250" cy="220" r="150" stroke-width="1.4"/><circle cx="250" cy="220" r="126" stroke-width="1"/><circle cx="250" cy="220" r="102" stroke-width="1"/><circle cx="250" cy="220" r="78" stroke-width="1"/><circle cx="250" cy="220" r="54" stroke-width="1"/><circle cx="250" cy="220" r="30" stroke-width="1"/>
+          </g>
+          <g class="cluster">
+            <circle cx="400" cy="330" r="150" stroke-width="1.4"/><circle cx="400" cy="330" r="126" stroke-width="1"/><circle cx="400" cy="330" r="102" stroke-width="1"/><circle cx="400" cy="330" r="78" stroke-width="1"/><circle cx="400" cy="330" r="54" stroke-width="1"/><circle cx="400" cy="330" r="30" stroke-width="1"/>
+          </g>
+          <g class="cluster">
+            <circle cx="230" cy="410" r="130" stroke-width="1.4"/><circle cx="230" cy="410" r="106" stroke-width="1"/><circle cx="230" cy="410" r="82" stroke-width="1"/><circle cx="230" cy="410" r="58" stroke-width="1"/><circle cx="230" cy="410" r="34" stroke-width="1"/>
+          </g>
+          <circle class="orbit" cx="300" cy="310" r="270" stroke-width="1" stroke-dasharray="2 10"/>
+        </svg>
       </section>
 
-      <section class="card" aria-labelledby="join-title">
-        <form id="join" novalidate>
-          <h2 id="join-title">Request early access</h2>
-          <p>We're opening to a small group of NYC businesses first.</p>
-          <label for="email">Email</label>
-          <input id="email" type="email" autocomplete="email" inputmode="email" required>
-          <div class="pair">
-            <div>
-              <label for="business">Your business <span class="opt">(optional)</span></label>
-              <select id="business">
-                <option value="">Choose one</option>
-                <option>Restaurant, café or bar</option>
-                <option>Food or drink maker</option>
-                <option>Shop or retail</option>
-                <option>Beauty and personal care</option>
-                <option>Health and wellness</option>
-                <option>Child care</option>
-                <option>Building and trades</option>
-                <option>Making things</option>
-                <option>Tech or software</option>
-                <option>Creative and media</option>
-                <option>Transport and delivery</option>
-                <option>Professional services</option>
-                <option>Auto repair or car wash</option>
-                <option>Property owner or landlord</option>
-                <option>Something else</option>
-              </select>
-            </div>
-            <div>
-              <label for="borough">Borough <span class="opt">(optional)</span></label>
-              <select id="borough">
-                <option value="">Choose one</option>
-                <option>Manhattan</option>
-                <option>Brooklyn</option>
-                <option>Queens</option>
-                <option>The Bronx</option>
-                <option>Staten Island</option>
-                <option>Outside NYC</option>
-              </select>
+      <section class="block" id="how" aria-labelledby="how-title">
+        <div class="block-head">
+          <h2 id="how-title">How it works</h2>
+          <p>Most small businesses leave available funding unclaimed because the programs are scattered across hundreds of agency pages. Rackup brings them into one assessment.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="label">01</span>
+            <h3>Profile your business</h3>
+            <p>Industry, location, size and the investments planned for the year ahead. It takes a few minutes.</p>
+          </li>
+          <li>
+            <span class="label">02</span>
+            <h3>Review your matches</h3>
+            <p>Each program is checked against your profile, with the reasons it fits and anything left to confirm.</p>
+          </li>
+          <li>
+            <span class="label">03</span>
+            <h3>Apply with full terms</h3>
+            <p>Award size, timing, required documents, and whether funds are paid in advance or reimbursed.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="block" id="coverage" aria-labelledby="coverage-title">
+        <div class="block-head">
+          <h2 id="coverage-title">Coverage</h2>
+          <p>Every program is read from its official source, with the terms quoted. Non-repayable funding is prioritized over loans.</p>
+        </div>
+        <dl class="figures">
+          <div><dt>1,200+</dt><dd>Programs reviewed across public and private sources</dd></div>
+          <div><dt>4</dt><dd>Levels covered: city, state, utility and federal</dd></div>
+          <div><dt>5</dt><dd>Boroughs, including programs limited to specific neighborhoods</dd></div>
+          <div><dt>0%</dt><dd>Equity taken. Rackup covers non-dilutive funding only</dd></div>
+        </dl>
+      </section>
+
+      <section class="block" id="access" aria-labelledby="access-title">
+        <div class="access">
+          <div>
+            <p class="label status"><i aria-hidden="true"></i>Currently at capacity</p>
+            <h2 id="access-title">Request access</h2>
+            <p class="lead">We admit businesses in cohorts so every profile receives a complete assessment. Submit a request and we will contact you when the next place opens.</p>
+          </div>
+          <div>
+            <form id="join" novalidate>
+              <div class="field">
+                <label class="label" for="email">Work email</label>
+                <input id="email" type="email" autocomplete="email" inputmode="email" required>
+              </div>
+              <div class="pair">
+                <div class="field">
+                  <label class="label" for="business">Business type</label>
+                  <select id="business">
+                    <option value="">Select</option>
+                    <option>Restaurant, café or bar</option>
+                    <option>Food or beverage production</option>
+                    <option>Retail</option>
+                    <option>Beauty and personal care</option>
+                    <option>Health and wellness</option>
+                    <option>Child care</option>
+                    <option>Construction and trades</option>
+                    <option>Manufacturing</option>
+                    <option>Technology</option>
+                    <option>Creative and media</option>
+                    <option>Transportation and logistics</option>
+                    <option>Professional services</option>
+                    <option>Automotive</option>
+                    <option>Real estate</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="label" for="borough">Borough</label>
+                  <select id="borough">
+                    <option value="">Select</option>
+                    <option>Manhattan</option>
+                    <option>Brooklyn</option>
+                    <option>Queens</option>
+                    <option>The Bronx</option>
+                    <option>Staten Island</option>
+                    <option>Outside NYC</option>
+                  </select>
+                </div>
+              </div>
+              <div class="honey" aria-hidden="true"><label for="website">Website</label><input id="website" type="text" tabindex="-1" autocomplete="off"></div>
+              <label class="consent"><input id="consent" type="checkbox"> I agree to be contacted about Rackup access. Your details are used for nothing else.</label>
+              <button class="button label" type="submit" id="submit">Submit request</button>
+              <p class="message" id="message" role="alert"></p>
+            </form>
+            <div class="received" id="done" hidden tabindex="-1">
+              <p class="label">Request received</p>
+              <h3 id="done-title">You're in the queue.</h3>
+              <p id="done-text"></p>
+              <button class="text-button" type="button" id="again">Submit another request</button>
             </div>
           </div>
-          <div class="honey" aria-hidden="true"><label for="website">Website</label><input id="website" type="text" tabindex="-1" autocomplete="off"></div>
-          <label class="consent"><input id="consent" type="checkbox"> Email me when my spot opens. Nothing else.</label>
-          <button class="go" type="submit" id="submit">Request early access</button>
-          <p class="message" id="message" role="alert"></p>
-          <p class="fine">We only use your email for Rackup. Ask us to remove it anytime.</p>
-        </form>
-        <div id="done" hidden tabindex="-1">
-          <h2>You're on the list</h2>
-          <p class="sub" id="done-text"></p>
-          <button class="again" type="button" id="again">Add another email</button>
         </div>
       </section>
-    </div>
+    </main>
 
-    <ol class="steps">
-      <li><strong>Tell us about your business</strong><span>A few taps: what you do, where you are, what's coming up this year.</span></li>
-      <li><strong>See what fits, and why</strong><span>Programs matched to you, with the money you don't pay back first.</span></li>
-      <li><strong>Know what it takes</strong><span>What each one asks for, when to apply, and whether it pays up front or reimburses you.</span></li>
-    </ol>
-
-    <footer>Rackup, New York City.</footer>
-  </main>
+    <footer class="label">
+      <span>Rackup</span>
+      <span>New York, NY</span>
+    </footer>
+  </div>
 
   <script>
     "use strict";
@@ -152,10 +259,10 @@
       const message = $("message");
       message.textContent = "";
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { message.textContent = "Enter a valid email address."; $("email").focus(); return; }
-      if (!$("consent").checked) { message.textContent = "Tick the box so we can email you when your spot opens."; return; }
+      if (!$("consent").checked) { message.textContent = "Please confirm we may contact you about access."; return; }
       const button = $("submit");
       button.disabled = true;
-      button.textContent = "Adding you…";
+      button.textContent = "Submitting";
       const ref = new URLSearchParams(location.search).get("ref");
       try {
         const response = await fetch(JOIN_URL, {
@@ -172,20 +279,20 @@
         });
         const body = await response.json().catch(() => ({}));
         if (!response.ok) {
-          const text = body.error && typeof body.error.message === "string" ? body.error.message : "Something went wrong. Try again.";
+          const text = body.error && typeof body.error.message === "string" ? body.error.message : "The request could not be submitted. Please try again.";
           throw new Error(text);
         }
         $("done-text").textContent = body.position
-          ? `You're number ${body.position}. We'll email ${email} when your spot opens.`
-          : `We'll email ${email} when your spot opens.`;
+          ? `Your position is ${body.position}. We will contact ${email} when a place becomes available.`
+          : `We will contact ${email} when a place becomes available.`;
         $("join").hidden = true;
         $("done").hidden = false;
         $("done").focus();
       } catch (error) {
-        message.textContent = error.message || "Something went wrong. Try again.";
+        message.textContent = error.message || "The request could not be submitted. Please try again.";
       } finally {
         button.disabled = false;
-        button.textContent = "Request early access";
+        button.textContent = "Submit request";
       }
     });
 
