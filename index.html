@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rackup</title>
+  <meta name="description" content="Rackup matches New York City small businesses to the grants, tax credits and rebates they can actually get. Request early access.">
+  <meta property="og:title" content="Rackup">
+  <meta property="og:description" content="Find the money your NYC business doesn't have to pay back.">
+  <meta name="theme-color" content="#b8c1ae">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --field: #b8c1ae; --paper: #cbd2c1; --ink: #1c211b; --ink-soft: #414a3e;
+      --mustard: #e3c766; --mustard-deep: #c9aa45; --rust: #9b4128; --line: rgba(28, 33, 27, 0.16);
+      --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+      --body: "Figtree", "Avenir Next", system-ui, sans-serif;
+      --gutter: clamp(16px, 5vw, 44px);
+    }
+    * { box-sizing: border-box; }
+    html, body { background: var(--field); }
+    body { margin: 0; color: var(--ink); font: 400 1.0625rem/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+    button, input, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    [tabindex="-1"]:focus { outline: none; }
+    [hidden] { display: none !important; }
+
+    .wrap { max-width: 68rem; margin: 0 auto; padding: 24px var(--gutter) 56px; }
+    .mark { font: 700 1.25rem/1 var(--display); letter-spacing: -0.02em; margin: 0; display: inline-flex; align-items: center; gap: 10px; }
+    .mark i { width: 14px; height: 22px; background: var(--mustard); border-radius: 3px; box-shadow: 6px -6px 0 var(--ink); display: inline-block; }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: clamp(40px, 10vh, 110px); }
+    @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: end; } }
+    .hero > *, .pair > * { min-width: 0; }
+    h1 { font: 700 clamp(2.5rem, 9vw, 5rem)/0.98 var(--display); letter-spacing: -0.035em; margin: 0 0 22px; text-wrap: balance; }
+    .lede { font-size: clamp(1.1rem, 2.6vw, 1.3rem); max-width: 34rem; margin: 0; }
+
+    .steps { list-style: none; counter-reset: step; padding: 0; margin: clamp(48px, 9vh, 96px) 0 0; display: grid; gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    @media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+    .steps li { counter-increment: step; background: var(--field); padding: 22px 22px 22px 0; }
+    @media (min-width: 760px) { .steps li + li { padding-left: 22px; } }
+    .steps li::before { content: counter(step); font: 700 2.4rem/1 var(--display); color: var(--mustard-deep); display: block; margin-bottom: 10px; }
+    .steps strong { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+    .steps span { color: var(--ink-soft); }
+
+    .card { background: var(--paper); border-radius: 20px; padding: 24px; }
+    .card h2 { font: 700 1.6rem/1.1 var(--display); letter-spacing: -0.015em; margin: 0 0 6px; }
+    .card > form > p, .card .sub { margin: 0 0 12px; color: var(--ink-soft); }
+    label { display: block; font-weight: 600; font-size: 0.95rem; margin: 14px 0 6px; }
+    label .opt { font-weight: 400; color: var(--ink-soft); }
+    input[type="email"], select { width: 100%; min-width: 0; max-width: 100%; padding: 13px 14px; border-radius: 12px; border: 2px solid var(--line); background: #e3e8dc; }
+    input:focus, select:focus { border-color: var(--ink); outline: none; }
+    .pair { display: grid; gap: 0 12px; }
+    @media (min-width: 460px) { .pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+    .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin-top: 16px; }
+    .consent input { width: 20px; height: 20px; margin-top: 3px; flex: none; accent-color: var(--ink); }
+    .go { width: 100%; margin-top: 18px; border: 0; border-radius: 999px; padding: 16px 20px; background: var(--mustard); box-shadow: inset 0 -3px 0 var(--mustard-deep); font-weight: 700; font-size: 1.05rem; cursor: pointer; }
+    .go:disabled { opacity: 0.6; cursor: default; }
+    .message { margin: 12px 0 0; min-height: 1.4em; color: var(--rust); font-weight: 600; }
+    .fine { font-size: 0.85rem; color: var(--ink-soft); margin: 10px 0 0; }
+    .honey { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .again { border: 0; background: none; padding: 8px 0; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+    footer { margin-top: 56px; font-size: 0.9rem; color: var(--ink-soft); }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="mark"><i aria-hidden="true"></i>Rackup</p>
+
+    <div class="hero">
+      <section>
+        <h1>Find the money your business doesn't have to pay back</h1>
+        <p class="lede">New York City has grants, tax credits and rebates for small businesses, spread across hundreds of city, state, utility and federal pages. Rackup reads them for you and shows the ones that fit your business, with plain answers on how much, when, and what it takes.</p>
+      </section>
+
+      <section class="card" aria-labelledby="join-title">
+        <form id="join" novalidate>
+          <h2 id="join-title">Request early access</h2>
+          <p>We're opening to a small group of NYC businesses first.</p>
+          <label for="email">Email</label>
+          <input id="email" type="email" autocomplete="email" inputmode="email" required>
+          <div class="pair">
+            <div>
+              <label for="business">Your business <span class="opt">(optional)</span></label>
+              <select id="business">
+                <option value="">Choose one</option>
+                <option>Restaurant, café or bar</option>
+                <option>Food or drink maker</option>
+                <option>Shop or retail</option>
+                <option>Beauty and personal care</option>
+                <option>Health and wellness</option>
+                <option>Child care</option>
+                <option>Building and trades</option>
+                <option>Making things</option>
+                <option>Tech or software</option>
+                <option>Creative and media</option>
+                <option>Transport and delivery</option>
+                <option>Professional services</option>
+                <option>Auto repair or car wash</option>
+                <option>Property owner or landlord</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div>
+              <label for="borough">Borough <span class="opt">(optional)</span></label>
+              <select id="borough">
+                <option value="">Choose one</option>
+                <option>Manhattan</option>
+                <option>Brooklyn</option>
+                <option>Queens</option>
+                <option>The Bronx</option>
+                <option>Staten Island</option>
+                <option>Outside NYC</option>
+              </select>
+            </div>
+          </div>
+          <div class="honey" aria-hidden="true"><label for="website">Website</label><input id="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="consent"><input id="consent" type="checkbox"> Email me when my spot opens. Nothing else.</label>
+          <button class="go" type="submit" id="submit">Request early access</button>
+          <p class="message" id="message" role="alert"></p>
+          <p class="fine">We only use your email for Rackup. Ask us to remove it anytime.</p>
+        </form>
+        <div id="done" hidden tabindex="-1">
+          <h2>You're on the list</h2>
+          <p class="sub" id="done-text"></p>
+          <button class="again" type="button" id="again">Add another email</button>
+        </div>
+      </section>
+    </div>
+
+    <ol class="steps">
+      <li><strong>Tell us about your business</strong><span>A few taps: what you do, where you are, what's coming up this year.</span></li>
+      <li><strong>See what fits, and why</strong><span>Programs matched to you, with the money you don't pay back first.</span></li>
+      <li><strong>Know what it takes</strong><span>What each one asks for, when to apply, and whether it pays up front or reimburses you.</span></li>
+    </ol>
+
+    <footer>Rackup, New York City.</footer>
+  </main>
+
+  <script>
+    "use strict";
+    const JOIN_URL = "https://s82.app/early/api/join";
+    const $ = (id) => document.getElementById(id);
+
+    $("join").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = $("email").value.trim();
+      const message = $("message");
+      message.textContent = "";
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { message.textContent = "Enter a valid email address."; $("email").focus(); return; }
+      if (!$("consent").checked) { message.textContent = "Tick the box so we can email you when your spot opens."; return; }
+      const button = $("submit");
+      button.disabled = true;
+      button.textContent = "Adding you…";
+      const ref = new URLSearchParams(location.search).get("ref");
+      try {
+        const response = await fetch(JOIN_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            business: $("business").value || null,
+            borough: $("borough").value || null,
+            consent: true,
+            website: $("website").value || null,
+            source: ("rackup.s82.studio" + (ref ? " ref:" + ref : "")).slice(0, 100),
+          }),
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          const text = body.error && typeof body.error.message === "string" ? body.error.message : "Something went wrong. Try again.";
+          throw new Error(text);
+        }
+        $("done-text").textContent = body.position
+          ? `You're number ${body.position}. We'll email ${email} when your spot opens.`
+          : `We'll email ${email} when your spot opens.`;
+        $("join").hidden = true;
+        $("done").hidden = false;
+        $("done").focus();
+      } catch (error) {
+        message.textContent = error.message || "Something went wrong. Try again.";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Request early access";
+      }
+    });
+
+    $("again").addEventListener("click", () => {
+      $("join").reset();
+      $("done").hidden = true;
+      $("join").hidden = false;
+      $("email").focus();
+    });
+  </script>
+</body>
+</html>
