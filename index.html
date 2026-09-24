@@ -82,7 +82,11 @@
     .steps p { color: var(--muted); margin: 0; }
 
     .figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin: 0; }
-    @media (min-width: 760px) { .figures { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    .figures div:first-child { grid-column: 1 / -1; }
+    @media (min-width: 760px) {
+      .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .figures div:first-child { grid-column: auto; }
+    }
     .figures div { border-top: 1px solid var(--ink); padding-top: 16px; }
     .figures dt { font: 400 clamp(2.2rem, 4.5vw, 3.2rem)/1 var(--serif); font-variant-numeric: tabular-nums; }
     .figures dd { margin: 10px 0 0; color: var(--muted); max-width: 16rem; }
@@ -198,7 +202,6 @@
           <div><dt>$1K&ndash;$20M</dt><dd>Grants and tax credits on the platform, from quick awards to multi-million programs</dd></div>
           <div><dt>1,200+</dt><dd>Programs reviewed across public and private sources</dd></div>
           <div><dt>4</dt><dd>Levels covered: city, state, utility and federal</dd></div>
-          <div><dt>5</dt><dd>Boroughs, including programs limited to specific neighborhoods</dd></div>
         </dl>
       </section>
 
